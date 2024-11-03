@@ -5,12 +5,13 @@ using UnityEngine;
 public class Manager : MonoBehaviour
 {
     public GameObject TheRock;
+    public GameObject Superman;
     private float TheRockX;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        Instantiate(Superman, new Vector3(3f, 0, -1), Quaternion.identity);
     }
 
     // Update is called once per frame
