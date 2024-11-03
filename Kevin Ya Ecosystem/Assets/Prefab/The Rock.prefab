@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 7873449875355578984}
   - component: {fileID: 4452530508328720472}
   - component: {fileID: 7632461960362976785}
+  - component: {fileID: 5926321376215595142}
   m_Layer: 0
   m_Name: The Rock
-  m_TagString: Untagged
+  m_TagString: The Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,6 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f7c43be7dd15f49b3eea6c8f841bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0.01
+  explosionTime: 600
+  scale: 1
+  TheRock: {fileID: 6895004583380201984}
 --- !u!60 &7632461960362976785
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -169,3 +174,30 @@ PolygonCollider2D:
       - {x: 0.635, y: -0.815}
       - {x: 0.505, y: -0.755}
   m_UseDelaunayMesh: 0
+--- !u!50 &5926321376215595142
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6895004583380201984}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
