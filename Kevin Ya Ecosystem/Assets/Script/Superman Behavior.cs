@@ -6,17 +6,26 @@ public class SupermanBehavior : MonoBehaviour
 {
     private enum State
     {
-        Rotate,
+        Flying,
         Speedy,
+        Return,
+        Wondering,
         Bye
     }
-    private State currentState = State.Rotate;
+    private State currentState = State.Flying;
     public float speed;
+    public float radius;
+    public float dir;
+    public float rotationSpeed;
+    public float maxRadius;
+    private bool re = true;
+    private bool canReturn = true;
+    private int countdown;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        countdown = Random.Range(10, 500);
     }
 
     // Update is called once per frame
@@ -24,24 +33,47 @@ public class SupermanBehavior : MonoBehaviour
     {
         switch (currentState)
         {
-            case State.Rotate:
-                rotate();
+            case State.Flying:
+                flying();
                 break;
 
             case State.Speedy:
                 speedy();
                 break;
 
-            case State.Bye:
+            case State.Return:
+                theReturn();
+                break;
+                
+            case State.Wondering:
+                wondering();
+                break;
 
+            case State.Bye:
+                Destroy(this.gameObject);
                 break;
         }
+
+        float distance = Vector3.Distance(transform.position, new Vector3(0, 0, -1));
+        if (distance > maxRadius && canReturn)
+        {
+            canReturn = false;
+            currentState = State.Return;
+        }
+        if(countdown <= 0)
+        {
+            currentState = State.Bye;
+        }
+        Debug.Log(countdown);
     }
 
-    private void rotate()
+    private void flying()
     {
-        this.transform.Rotate(Time.deltaTime * Vector3.forward * Random.Range(0f, 360f));
-        transform.position += transform.up * (Time.deltaTime * speed);
+        float x = Mathf.Cos(dir) * radius;
+        float y = Mathf.Sin(dir) * radius;
+        this.transform.position = new Vector3(x, y, -1);
+        dir += speed * Time.deltaTime;
+        this.transform.Rotate(0, 0, 10f * Time.deltaTime * rotationSpeed);
     }
 
     private void speedy()
@@ -55,5 +87,27 @@ public class SupermanBehavior : MonoBehaviour
         {
             currentState = State.Speedy;
         }
+        if (collision.gameObject.tag == "Aquaman")
+        {
+            currentState = State.Bye;
+        }
+    }
+
+    private void theReturn()
+    {
+        if (re)
+        {
+            transform.Rotate(0, 0, Random.Range(0f, 360f));
+            countdown--;
+            re = false;
+        }
+        currentState = State.Wondering;
+    }
+
+    private void wondering()
+    {
+        transform.position += transform.up * (Time.deltaTime * speed);
+        re = true;
+        canReturn = true;
     }
 }

@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class AquamanBehavior : MonoBehaviour
 {
+    private enum State
+    {
+        Swim,
+        Jump,
+        Death
+    }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9095589623991145442}
   - component: {fileID: 3147302875222677248}
-  - component: {fileID: 1771614235682782897}
   - component: {fileID: 914959975690706753}
+  - component: {fileID: 4631143190687856797}
   m_Layer: 0
   m_Name: Superman
   m_TagString: Superman
@@ -86,19 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1771614235682782897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8118126352753525596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9908b84d00e62e4ba3fe318f970020b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
 --- !u!60 &914959975690706753
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -390,3 +377,21 @@ PolygonCollider2D:
       - {x: -0.22, y: -5.96}
       - {x: -0.14, y: -5.7599998}
   m_UseDelaunayMesh: 0
+--- !u!114 &4631143190687856797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8118126352753525596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9908b84d00e62e4ba3fe318f970020b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  radius: 3
+  dir: 0
+  rotationSpeed: 28.8
+  maxRadius: 7
+  countdown: 10

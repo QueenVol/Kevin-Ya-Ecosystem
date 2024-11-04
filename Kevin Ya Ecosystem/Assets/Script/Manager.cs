@@ -11,7 +11,7 @@ public class Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(Superman, new Vector3(3f, 0, -1), Quaternion.identity);
+        Instantiate(Superman, new Vector3(0, 0, -1), Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -21,6 +21,10 @@ public class Manager : MonoBehaviour
         {
             TheRockX = Random.Range(-4.6f, 4.6f);
             Instantiate(TheRock, new Vector3(TheRockX, 5.5f, -1), Quaternion.identity);
+        }
+        if (GameObject.FindGameObjectsWithTag("Superman").Length == 0)
+        {
+            Instantiate(Superman, new Vector3(0, 0, -1), Quaternion.identity);
         }
     }
 }
