@@ -6,12 +6,13 @@ public class Manager : MonoBehaviour
 {
     public GameObject TheRock;
     public GameObject Superman;
+    public GameObject Aquaman;
     private float TheRockX;
 
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(Superman, new Vector3(0, 0, -1), Quaternion.identity);
+        
     }
 
     // Update is called once per frame
@@ -25,6 +26,10 @@ public class Manager : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Superman").Length == 0)
         {
             Instantiate(Superman, new Vector3(0, 0, -1), Quaternion.identity);
+        }
+        if (GameObject.FindGameObjectsWithTag("Aquaman").Length == 0)
+        {
+            Instantiate(Aquaman, new Vector3(-4.2f, -4.5f, -1), Quaternion.identity);
         }
     }
 }

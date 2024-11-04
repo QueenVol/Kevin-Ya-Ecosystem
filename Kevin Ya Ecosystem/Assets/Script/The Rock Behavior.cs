@@ -105,7 +105,10 @@ public class TheRockBehavior : MonoBehaviour
         }
         if(collision.gameObject.tag == "Aquaman")
         {
-            currentState = State.Duplicate;
+            if(currentState != State.Explode)
+            {
+                currentState = State.Duplicate;
+            }
         }
     }
 }

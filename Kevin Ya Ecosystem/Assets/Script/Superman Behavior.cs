@@ -64,7 +64,6 @@ public class SupermanBehavior : MonoBehaviour
         {
             currentState = State.Bye;
         }
-        Debug.Log(countdown);
     }
 
     private void flying()
@@ -79,6 +78,7 @@ public class SupermanBehavior : MonoBehaviour
     private void speedy()
     {
         transform.position += transform.up * (Time.deltaTime * speed * 2);
+        canReturn = true ;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
