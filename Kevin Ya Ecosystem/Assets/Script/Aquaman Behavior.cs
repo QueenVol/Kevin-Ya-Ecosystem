@@ -20,6 +20,18 @@ public class AquamanBehavior : MonoBehaviour
     private bool canRotate = true;
     public GameObject Aquaman;
     private State preState;
+    public AudioSource AquamanSwims;
+    public AudioSource AquamanJumps;
+    public AudioSource AquamanWalks;
+    public AudioSource AquamanDives;
+    public AudioSource AquamanBorns;
+    public AudioSource AquamanDies;
+    private bool swimPlays = true;
+    private bool jumpPlays = true;
+    private bool walkPlays = true;
+    private bool divePlays = true;
+    private bool bornPlays = true;
+    private bool deathPlays = true;
 
     // Start is called before the first frame update
     void Start()
@@ -34,30 +46,86 @@ public class AquamanBehavior : MonoBehaviour
         {
             case State.Swim:
                 swim();
+                if (swimPlays)
+                {
+                    AquamanSwims.Play();
+                    swimPlays = false;
+                    jumpPlays = true;
+                    bornPlays = true;
+                }
                 preState = State.Swim;
                 break;
 
             case State.Jump:
                 jump();
+                if (jumpPlays)
+                {
+                    AquamanJumps.Play();
+                    AquamanSwims.Stop();
+                    jumpPlays = false;
+                    walkPlays = true;
+                    bornPlays = true;
+                }
                 preState= State.Jump;
                 break;
 
             case State.Walk:
                 walk();
+                if (walkPlays)
+                {
+                    AquamanWalks.Play();
+                    walkPlays = false;
+                    divePlays = true;
+                    bornPlays = true;
+                }
                 preState= State.Walk;
                 break;
 
             case State.Dive:
                 dive();
+                if (divePlays)
+                {
+                    AquamanDives.Play();
+                    AquamanWalks.Stop();
+                    divePlays = false;
+                    swimPlays = true;
+                    bornPlays = true;
+                }
                 preState= State.Dive;
                 break;
 
             case State.Born:
                 born();
+                if (bornPlays)
+                {
+                    AquamanBorns.Play();
+                    AquamanSwims.Stop();
+                    AquamanJumps.Stop();
+                    AquamanWalks.Stop();
+                    AquamanDives.Stop();
+                    bornPlays = false;
+                    swimPlays = true;
+                    jumpPlays = true;
+                    walkPlays = true;
+                    divePlays = true;
+                }
                 break;
 
             case State.Death:
-                Destroy(this.gameObject);
+                if (deathPlays)
+                {
+                    AquamanDies.Play();
+                    AquamanSwims.Stop();
+                    AquamanJumps.Stop();
+                    AquamanWalks.Stop();
+                    AquamanDives.Stop();
+                    AquamanBorns.Stop();
+                    deathPlays = false;
+                }
+                if(AquamanDies.isPlaying == false)
+                {
+                    Destroy(this.gameObject);
+                }
                 break;
         }
         if (this.transform.position.y < -5.5f)
