@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class SupermanBehavior : MonoBehaviour
@@ -21,6 +22,14 @@ public class SupermanBehavior : MonoBehaviour
     private bool re = true;
     private bool canReturn = true;
     private int countdown;
+    public AudioSource SupermanFlies;
+    public AudioSource SupermanSpeeds;
+    public AudioSource SupermanReturns;
+    public AudioSource SupermanByes;
+    private bool flyPlays = true;
+    private bool speedPlays = true;
+    private bool returnPlays = true;
+    private bool byePlays = true;
 
     // Start is called before the first frame update
     void Start()
@@ -35,22 +44,49 @@ public class SupermanBehavior : MonoBehaviour
         {
             case State.Flying:
                 flying();
+                if (returnPlays)
+                {
+                    SupermanReturns.Play();
+                    returnPlays = false;
+                }
                 break;
 
             case State.Speedy:
                 speedy();
+                if (speedPlays)
+                {
+                    SupermanFlies.Stop();
+                    SupermanSpeeds.Play();
+                    speedPlays = false;
+                }
                 break;
 
             case State.Return:
                 theReturn();
+                speedPlays = true;
+                flyPlays = true;
                 break;
                 
             case State.Wondering:
                 wondering();
+                if (flyPlays)
+                {
+                    SupermanFlies.Play();
+                    flyPlays = false;
+                }
                 break;
 
             case State.Bye:
-                Destroy(this.gameObject);
+                if (byePlays)
+                {
+                    SupermanFlies.Stop();
+                    SupermanByes.Play();
+                    byePlays=false;
+                }
+                if(SupermanByes.isPlaying == false)
+                {
+                    Destroy(this.gameObject);
+                }
                 break;
         }
 

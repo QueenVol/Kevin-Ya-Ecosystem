@@ -60,6 +60,10 @@ public class AquamanBehavior : MonoBehaviour
                 Destroy(this.gameObject);
                 break;
         }
+        if (this.transform.position.y < -5.5f)
+        {
+            curretState = State.Death;
+        }
     }
 
     private void swim()
@@ -143,9 +147,17 @@ public class AquamanBehavior : MonoBehaviour
         {
             curretState = State.Born;
         }
-        if (collision.gameObject.tag == "The Rock" || collision.gameObject.tag == "Aquaman")
+        if (collision.gameObject.tag == "The Rock")
         {
             curretState = State.Death;
+        }
+        if (collision.gameObject.tag == "Aquaman")
+        {
+            int i = Random.Range(0, 3);
+            if (i == 0)
+            {
+                curretState = State.Death;
+            }
         }
     }
 }

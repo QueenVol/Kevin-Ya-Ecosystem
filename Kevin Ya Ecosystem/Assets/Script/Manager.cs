@@ -8,11 +8,16 @@ public class Manager : MonoBehaviour
     public GameObject Superman;
     public GameObject Aquaman;
     private float TheRockX;
+    public float superTime;
+    private float superTimer;
+    public float aquaTime;
+    private float aquaTimer;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        superTimer = superTime;
+        aquaTimer = aquaTime;
     }
 
     // Update is called once per frame
@@ -25,11 +30,21 @@ public class Manager : MonoBehaviour
         }
         if (GameObject.FindGameObjectsWithTag("Superman").Length == 0)
         {
-            Instantiate(Superman, new Vector3(0, 0, -1), Quaternion.identity);
+            superTimer += Time.deltaTime;
+            if (superTimer >= superTime)
+            {
+                Instantiate(Superman, new Vector3(0, 0, -1), Quaternion.identity);
+                superTimer = 0;
+            }
         }
         if (GameObject.FindGameObjectsWithTag("Aquaman").Length == 0)
         {
-            Instantiate(Aquaman, new Vector3(-4.2f, -4.5f, -1), Quaternion.identity);
+            aquaTimer += Time.deltaTime;
+            if (aquaTimer >= aquaTime)
+            {
+                Instantiate(Aquaman, new Vector3(-4.2f, -4.5f, -1), Quaternion.identity);
+                aquaTimer = 0;
+            }
         }
     }
 }

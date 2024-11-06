@@ -23,6 +23,14 @@ public class TheRockBehavior : MonoBehaviour
     private float x2;
     private bool canDup = true;
     public GameObject TheRock;
+    public AudioSource TheRockFalls;
+    public AudioSource TheRockExplodes;
+    public AudioSource TheRockDuplicates;
+    public AudioSource TheRockDestroys;
+    private bool fallPlays = true;
+    private bool explodePlays = true;
+    private bool duplicatePlays = true;
+    private bool destroyPlays = true;
 
     // Start is called before the first frame update
     void Start()
@@ -38,18 +46,43 @@ public class TheRockBehavior : MonoBehaviour
         {
             case State.Falling:
                 falling();
+                if (fallPlays)
+                {
+                    TheRockFalls.Play();
+                    fallPlays = false;
+                }
                 break;
 
             case State.Explode:
                 StartCoroutine(explode());
+                if (explodePlays)
+                {
+                    TheRockExplodes.Play();
+                    TheRockFalls.Stop();
+                    explodePlays = false;
+                }
                 break;
 
             case State.Duplicate:
                 duplicate();
+                if (duplicatePlays)
+                {
+                    TheRockDuplicates.Play();
+                    TheRockFalls.Stop();
+                    duplicatePlays = false;
+                }
                 break;
 
             case State.Destroy:
-                Destroy(this.gameObject);
+                if (destroyPlays)
+                {
+                    TheRockDestroys.Play();
+                    destroyPlays = false;
+                }
+                if(TheRockDestroys.isPlaying == false)
+                {
+                    Destroy(this.gameObject);
+                }
                 break;
         }
 
@@ -68,6 +101,7 @@ public class TheRockBehavior : MonoBehaviour
     {
         vel += new Vector3(0, -speed, 0);
         this.transform.position = vel;
+        
     }
 
     private IEnumerator explode()
@@ -99,13 +133,13 @@ public class TheRockBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Superman")
+        if (collision.gameObject.tag == "Aquaman")
         {
             currentState = State.Explode;
         }
-        if(collision.gameObject.tag == "Aquaman")
+        if(collision.gameObject.tag == "Superman")
         {
-            if(currentState != State.Explode)
+            if(currentState != State.Explode && currentState != State.Destroy)
             {
                 currentState = State.Duplicate;
             }
